@@ -19,7 +19,7 @@ async function createCheckoutSession(userEmail, domainUrl = 'https://berlinanmel
 
     try {
         const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card', 'sepa_debit'],
+            payment_method_types: ['card'],
             customer_email: userEmail || undefined,
             line_items: [
                 {
@@ -28,7 +28,6 @@ async function createCheckoutSession(userEmail, domainUrl = 'https://berlinanmel
                         product_data: {
                             name: 'Berlin Termine VIP Fast-Pass Alerts',
                             description: 'Instant 1-Second Priority Email & Telegram Bürgeramt Appointment Notifications',
-                            images: ['https://berlinanmeldung.com/logo.png'],
                         },
                         unit_amount: 499, // €4.99 EUR
                     },
