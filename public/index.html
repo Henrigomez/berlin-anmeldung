@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlin Termine & Expat Bureaucracy Hub | Free Anmeldung Alerts & PDF Generator</title>
+    <meta name="description" content="Never miss a Bürgeramt registration appointment in Berlin. Get instant email/Telegram alerts and generate your official Anmeldeformular PDF online.">
+    <!-- Google Fonts Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar container">
+        <a href="#" class="logo">
+            <span>⚡ BerlinTermine</span>
+            <span class="logo-badge">PRO</span>
+        </a>
+
+        <div class="nav-controls">
+            <div class="lang-switcher-wrapper">
+                <button class="lang-btn" id="langBtn">
+                    <span id="langCurrentFlag">🇬🇧</span>
+                    <span id="langCurrentName">English</span>
+                    <span>▾</span>
+                </button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <!-- Dynamic languages injected by app.js -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-pill">
+                <span class="pulse-dot"></span>
+                <span data-i18n="heroPill">Live Bürgeramt Monitor Active</span>
+            </div>
+            <h1 class="hero-title" data-i18n="heroTitle">
+                Get Your Berlin <span>Anmeldung Appointment</span> Effortlessly
+            </h1>
+            <p class="hero-subtitle" data-i18n="heroSubtitle">
+                Never miss a bookable slot in Berlin again. Free automated instant Email & Telegram alerts as soon as new Bürgeramt appointments open up.
+            </p>
+
+            <!-- Instant Alert Subscription Card -->
+            <div class="subscribe-card">
+                <form class="subscribe-form" id="subscribeForm">
+                    <input 
+                        type="email" 
+                        class="subscribe-input" 
+                        id="emailInput" 
+                        placeholder="Enter your email address..." 
+                        data-i18n-placeholder="inputPlaceholder" 
+                        required
+                    >
+                    <input 
+                        type="text" 
+                        class="subscribe-input" 
+                        id="telegramInput" 
+                        placeholder="Telegram @username (optional)..." 
+                    >
+                    <button type="submit" class="subscribe-btn" data-i18n="subscribeBtn">
+                        Get Free Alerts ⚡
+                    </button>
+                </form>
+                <div class="form-feedback" id="formFeedback"></div>
+            </div>
+        </section>
+
+        <!-- Live Status Strip -->
+        <section class="status-strip">
+            <div class="status-card">
+                <div class="status-icon">🟢</div>
+                <div class="status-info">
+                    <h4 data-i18n="statusLive">BOT STATUS</h4>
+                    <p style="color: var(--accent-emerald);">ONLINE & SCANNING</p>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-icon">👥</div>
+                <div class="status-info">
+                    <h4 data-i18n="statusSubscribers">ACTIVE SUBSCRIBERS</h4>
+                    <p id="activeSubscribersCount">142</p>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-icon">🏛️</div>
+                <div class="status-info">
+                    <h4 data-i18n="statusDistricts">MONITORED DISTRICTS</h4>
+                    <p>ALL 12 BERLIN</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW HIGH-VALUE FEATURE: Anmeldeformular PDF Generator -->
+        <section class="pdf-generator-section" id="pdfSection">
+            <div class="section-header">
+                <span class="section-tag" style="color: var(--accent-cyan);">FREE TOOL</span>
+                <h2>📄 Official Anmeldeformular PDF Generator</h2>
+                <p style="color: var(--text-secondary);">Fill in your details in English below to instantly download your pre-filled official Berlin registration PDF ready to print and bring to your Bürgeramt appointment!</p>
+            </div>
+
+            <div class="pdf-form-card">
+                <form id="pdfForm" onsubmit="generatePDF(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name (Vorname) *</label>
+                            <input type="text" id="pdfFirstName" placeholder="e.g. John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name (Familienname) *</label>
+                            <input type="text" id="pdfLastName" placeholder="e.g. Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Birth Name (Geburtsname if different)</label>
+                            <input type="text" id="pdfBirthName" placeholder="Same as surname if unchanged">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth (Geburtsdatum) *</label>
+                            <input type="date" id="pdfDob" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Place of Birth (Geburtsort) *</label>
+                            <input type="text" id="pdfBirthPlace" placeholder="e.g. London, UK" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender (Geschlecht)</label>
+                            <select id="pdfGender">
+                                <option value="männlich">Male (männlich)</option>
+                                <option value="weiblich">Female (weiblich)</option>
+                                <option value="divers">Diverse (divers)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nationality (Staatsangehörigkeit) *</label>
+                            <input type="text" id="pdfNationality" placeholder="e.g. British, Spanish, American" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Civil Status (Familienstand)</label>
+                            <select id="pdfCivilStatus">
+                                <option value="ledig">Single (ledig)</option>
+                                <option value="verheiratet">Married (verheiratet)</option>
+                                <option value="geschieden">Divorced (geschieden)</option>
+                                <option value="verwitwet">Widowed (verwitwet)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Religion (Religionszugehörigkeit)</label>
+                            <select id="pdfReligion">
+                                <option value="keine">None / No Tax (keine)</option>
+                                <option value="evangelisch">Protestant (evangelisch)</option>
+                                <option value="römisch-katholisch">Catholic (römisch-katholisch)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Moving Date to New Berlin Flat *</label>
+                            <input type="date" id="pdfMoveDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>New Berlin Street & House Number *</label>
+                            <input type="text" id="pdfNewStreet" placeholder="e.g. Sonnenallee 42" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Apt / Flat / Floor (Zusatz)</label>
+                            <input type="text" id="pdfNewApt" placeholder="e.g. 3. OG links, Apt 12">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Berlin Postal Code (PLZ) *</label>
+                            <input type="text" id="pdfNewZip" placeholder="e.g. 12045" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Berlin District (Bezirk)</label>
+                            <input type="text" id="pdfNewDistrict" placeholder="e.g. Neukölln, Mitte, Pankow">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Previous Street & City (Bisherige Wohnung)</label>
+                            <input type="text" id="pdfPrevStreet" placeholder="e.g. Main St 10, Madrid / Munich">
+                        </div>
+                        <div class="form-group">
+                            <label>Landlord / Vermieter Full Name *</label>
+                            <input type="text" id="pdfLandlordName" placeholder="e.g. Akelius GmbH / Hans Müller" required>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button type="submit" class="subscribe-btn" style="width: 100%; justify-content: center; font-size: 1.1rem;">
+                            Generate & Download Official PDF (Kostenlos) 📄
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Benefits & Value Hub -->
+        <section style="margin-bottom: 80px;">
+            <div class="section-header">
+                <span class="section-tag">EXPAT ESSENTIALS</span>
+                <h2 class="section-title" data-i18n="benefitTitle">Why Do You Need Anmeldung in Berlin?</h2>
+                <p style="color: var(--text-secondary);" data-i18n="benefitSubtitle">Registering your address unlocks your entire life in Germany:</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💳</div>
+                    <h3 class="benefit-title" data-i18n="b1Title">Tax ID (Steuer-ID)</h3>
+                    <p class="benefit-desc" data-i18n="b1Desc">Essential for your employer to pay your salary without being taxed at the maximum 45% rate.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏦</div>
+                    <h3 class="benefit-title" data-i18n="b2Title">German Bank Account</h3>
+                    <p class="benefit-desc" data-i18n="b2Desc">Required by traditional banks (Sparkasse, Deutsche Bank) to open a resident checking account.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏥</div>
+                    <h3 class="benefit-title" data-i18n="b3Title">Health Insurance & Contracts</h3>
+                    <p class="benefit-desc" data-i18n="b3Desc">Sign internet plans, gym memberships, and set up mandatory public/private health insurance.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3 class="benefit-title" data-i18n="b4Title">SCHUFA Credit Score</h3>
+                    <p class="benefit-desc" data-i18n="b4Desc">Start building your credit history in Germany so landlords accept your future rental applications.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Expat Survival Checklist -->
+        <section class="checklist-section">
+            <div class="section-header" style="margin-bottom: 25px;">
+                <span class="section-tag" style="color: var(--accent-emerald);">PROGRESS TRACKER</span>
+                <h2 class="section-title" data-i18n="checklistTitle">Expat Bureaucracy Survival Checklist</h2>
+                <p style="color: var(--text-secondary);" data-i18n="checklistSubtitle">Check off your progress to track your arrival journey in Berlin:</p>
+            </div>
+
+            <div class="checklist-progress-bar">
+                <div class="checklist-progress-fill" id="checklistProgressFill"></div>
+            </div>
+
+            <div class="checklist-items">
+                <div class="check-item">
+                    <div class="check-box"></div>
+                    <div class="check-text">
+                        <h5 data-i18n="c1Title">1. Landlord Confirmation (Wohnungsgeberbestätigung)</h5>
+                        <p data-i18n="c1Desc">Get this signed form from your landlord or primary tenant before booking your appointment.</p>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-box"></div>
+                    <div class="check-text">
+                        <h5 data-i18n="c2Title">2. Passport & Identity Document</h5>
+                        <p data-i18n="c2Desc">Make sure your passport is valid for at least 6 months.</p>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-box"></div>
+                    <div class="check-text">
+                        <h5 data-i18n="c3Title">3. Complete Registration Form (Anmeldeformular)</h5>
+                        <p data-i18n="c3Desc">Download and fill out the official Berlin registration form above using our PDF generator.</p>
+                    </div>
+                </div>
+
+                <div class="check-item">
+                    <div class="check-box"></div>
+                    <div class="check-text">
+                        <h5 data-i18n="c4Title">4. Book & Attend Bürgeramt Appointment</h5>
+                        <p data-i18n="c4Desc">Use our alert bot to catch an open slot and attend in person.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News & Bureaucracy Updates Feed -->
+        <section class="news-section">
+            <div class="section-header">
+                <span class="section-tag" style="color: var(--accent-indigo);">LIVE NEWS & GUIDES</span>
+                <h2 class="section-title" data-i18n="newsTitle">Berlin Expat News & Bureaucracy Tips</h2>
+                <p style="color: var(--text-secondary);" data-i18n="newsSubtitle">Updated every 2-3 days with vital advice for new residents:</p>
+            </div>
+
+            <div class="news-filters">
+                <button class="filter-btn active" onclick="filterNews('ALL', this)" data-i18n="allNews">All Updates</button>
+                <button class="filter-btn" onclick="filterNews('BUREAUCRACY', this)" data-i18n="bureaucracy">Bureaucracy</button>
+                <button class="filter-btn" onclick="filterNews('FINANCES', this)" data-i18n="finances">Finances</button>
+                <button class="filter-btn" onclick="filterNews('HOUSING', this)" data-i18n="housing">Housing</button>
+                <button class="filter-btn" onclick="filterNews('TRANSPORT', this)" data-i18n="transport">Transport</button>
+            </div>
+
+            <div class="news-grid" id="newsGrid">
+                <!-- Dynamically populated by app.js -->
+            </div>
+        </section>
+
+        <!-- Floating Ambient Music Player Widget -->
+        <div class="audio-widget-wrapper" id="audioWidget">
+            <button class="audio-toggle-btn" id="audioToggleBtn" onclick="toggleAudioPlayer()">
+                <span class="music-icon">🎵</span>
+                <span class="equalizer-bars" id="equalizerBars">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </span>
+                <span class="player-label">Berlin Focus Music</span>
+            </button>
+
+            <div class="audio-popup" id="audioPopup">
+                <div class="audio-popup-header">
+                    <h4>🎧 Berlin Chill Soundscape</h4>
+                    <button class="close-audio-btn" onclick="toggleAudioPlayer()">✕</button>
+                </div>
+                <p class="audio-track-name" id="trackName">Berlin Midnight Lo-Fi</p>
+                <div class="audio-controls">
+                    <button class="control-btn" onclick="prevTrack()">⏮️</button>
+                    <button class="control-btn play-main-btn" id="playMainBtn" onclick="togglePlayMusic()">▶️</button>
+                    <button class="control-btn" onclick="nextTrack()">⏭️</button>
+                </div>
+                <div class="volume-container">
+                    <span>🔈</span>
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.5" oninput="changeVolume(this.value)">
+                    <span>🔊</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Berlin Termine Pro. Automated Bürgeramt Appointment Alert Service & Expat Bureaucracy Platform.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
