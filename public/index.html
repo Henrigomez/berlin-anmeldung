@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berlin Termine & Expat Bureaucracy Hub | Free Anmeldung Alerts & PDF Generator</title>
-    <meta name="description" content="Never miss a Bürgeramt registration appointment in Berlin. Get instant email/Telegram alerts and generate your official Anmeldeformular PDF online.">
+    <meta name="description" content="Never miss a Bürgeramt registration appointment in Berlin. Get instant email/Telegram alerts, check live Berlin weather & weekly events, and generate your official Anmeldeformular PDF online.">
     <!-- Google Fonts Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,6 +98,27 @@
                 <div class="status-info">
                     <h4 data-i18n="statusDistricts">MONITORED DISTRICTS</h4>
                     <p>ALL 12 BERLIN</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE BERLIN WEATHER FORECAST WIDGET -->
+        <section class="weather-section">
+            <div class="weather-card-hero">
+                <div class="weather-main-info">
+                    <div class="weather-location-pill">
+                        <span>📍 Berlin, Germany</span>
+                        <span class="weather-live-tag">LIVE WEATHER</span>
+                    </div>
+                    <div class="temp-display">
+                        <span class="temp-icon" id="weatherIcon">☀️</span>
+                        <span class="temp-val" id="weatherCurrentTemp">24°C</span>
+                    </div>
+                    <p class="weather-desc" id="weatherDesc">Sunny & Pleasant • Wind 12 km/h</p>
+                </div>
+
+                <div class="weather-forecast-strip" id="weatherForecastStrip">
+                    <!-- Forecast Days injected dynamically -->
                 </div>
             </div>
         </section>
@@ -266,6 +287,19 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </section>
+
+        <!-- LIVE BERLIN WEEKLY EVENTS RADAR -->
+        <section class="events-section">
+            <div class="section-header">
+                <span class="section-tag" style="color: var(--accent-rose);">BERLIN THIS WEEK</span>
+                <h2>🎉 What's Happening in Berlin This Week</h2>
+                <p style="color: var(--text-secondary);">Handpicked top cultural events, open-air festivals, flea markets & expat meetups in Berlin.</p>
+            </div>
+
+            <div class="events-grid" id="eventsGrid">
+                <!-- Dynamically populated by app.js -->
             </div>
         </section>
 

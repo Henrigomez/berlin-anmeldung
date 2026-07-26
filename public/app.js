@@ -547,10 +547,97 @@ async function buyVIPPlan(event) {
             btn.innerText = originalText;
             btn.disabled = false;
         }
+async function loadWeather() {
+    try {
+        const res = await fetch('/api/weather');
+        const data = await res.json();
+        if (data.success) {
+            const cur = data.current;
+            document.getElementById('weatherCurrentTemp').innerText = `${cur.temp}°C`;
+            
+            // Map weathercode to emoji & description
+            const weatherMap = {
+                0: { icon: "☀️", desc: "Clear & Sunny Sky" },
+                1: { icon: "🌤️", desc: "Mainly Clear & Mild" },
+                2: { icon: "⛅", desc: "Partly Cloudy" },
+                3: { icon: "☁️", desc: "Overcast Sky" },
+                45: { icon: "🌫️", desc: "Foggy Morning" },
+                61: { icon: "🌧️", desc: "Light Rain Showers" },
+                80: { icon: "🌦️", desc: "Passing Rain Showers" }
+            };
+            const wInfo = weatherMap[cur.weathercode] || { icon: "🌤️", desc: "Pleasant Berlin Weather" };
+            document.getElementById('weatherIcon').innerText = wInfo.icon;
+            document.getElementById('weatherDesc').innerText = `${wInfo.desc} • Wind ${cur.windspeed} km/h`;
+
+            // Render 7-day forecast
+            const forecastStrip = document.getElementById('weatherForecastStrip');
+            if (forecastStrip && data.daily) {
+                const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                forecastStrip.innerHTML = data.daily.map(d => {
+                    const dateObj = new Date(d.date);
+                    const dayName = daysOfWeek[dateObj.getDay()];
+                    const icon = (weatherMap[d.code] || { icon: "🌤️" }).icon;
+                    return `
+                        <div class="forecast-day-card">
+                            <span class="forecast-day-name">${dayName}</span>
+                            <span class="forecast-icon">${icon}</span>
+                            <div class="forecast-temps">${d.maxTemp}° <span>${d.minTemp}°</span></div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
     } catch (e) {
-        alert("Failed to connect to checkout: " + e.message);
-        btn.innerText = originalText;
-        btn.disabled = false;
+        console.warn("Weather load fallback:", e);
     }
 }
+
+async function loadEvents() {
+    try {
+        const res = await fetch('/api/events');
+        const data = await res.json();
+        if (data.success && data.events) {
+            const grid = document.getElementById('eventsGrid');
+            if (grid) {
+                grid.innerHTML = data.events.map(evt => `
+                    <div class="event-card">
+                        <div>
+                            <div class="event-header">
+                                <span class="event-badge">${evt.badge}</span>
+                                <span style="font-size: 1.5rem;">${evt.icon}</span>
+                            </div>
+                            <h3 class="event-title" style="margin-top: 10px;">${evt.title}</h3>
+                        </div>
+
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <span>📅</span> <strong>${evt.date}</strong>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>⏰</span> <span>${evt.time}</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>📍</span> <span>${evt.location}</span>
+                            </div>
+                            <div class="event-meta-item">
+                                <span>🎟️</span> <span style="color: var(--accent-emerald); font-weight: 700;">${evt.price}</span>
+                            </div>
+                        </div>
+
+                        <p class="event-desc">${evt.description}</p>
+                    </div>
+                `).join('');
+            }
+        }
+    } catch (e) {
+        console.warn("Events load error:", e);
+    }
+}
+
+// Initialize Weather & Events on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadWeather();
+    loadEvents();
+});
+
 
