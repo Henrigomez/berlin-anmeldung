@@ -634,10 +634,62 @@ async function loadEvents() {
     }
 }
 
-// Initialize Weather & Events on page load
+// Rent & Living Cost Calculator Logic
+function calculateBerlinCost() {
+    const districtSelect = document.getElementById('calcDistrict');
+    const sqmInput = document.getElementById('calcSquareMeters');
+    
+    if (!districtSelect || !sqmInput) return;
+
+    const district = districtSelect.value;
+    const sqm = parseInt(sqmInput.value);
+
+    document.getElementById('calcSquareMetersVal').innerText = `${sqm} m²`;
+
+    // Price per sqm by neighborhood in Berlin (Warmmiete estimate)
+    const rateMap = {
+        neukoelln: 18.5,
+        mitte: 24.0,
+        charlottenburg: 21.0,
+        wedding: 15.5
+    };
+
+    const rate = rateMap[district] || 18.0;
+    const warmRent = Math.round(sqm * rate);
+    const utilities = Math.round(60 + (sqm * 1.2)); // Electricity + Internet estimate
+    const transport = 49; // Deutschlandticket
+    const total = warmRent + utilities + transport;
+
+    document.getElementById('resWarmRent').innerText = `€ ${warmRent.toLocaleString()} / mo`;
+    document.getElementById('resUtilities').innerText = `€ ${utilities.toLocaleString()} / mo`;
+    document.getElementById('resTransport').innerText = `€ ${transport} / mo`;
+    document.getElementById('resTotalCost').innerText = `€ ${total.toLocaleString()} / mo`;
+}
+
+// 1-Click Copy German Template Handler
+function copyTemplate(elementId, btnElement) {
+    const textarea = document.getElementById(elementId);
+    if (!textarea) return;
+
+    textarea.select();
+    navigator.clipboard.writeText(textarea.value);
+
+    const originalText = btnElement.innerText;
+    btnElement.innerText = "Copied to Clipboard! ✅";
+    btnElement.style.background = "linear-gradient(135deg, #10b981, #059669)";
+
+    setTimeout(() => {
+        btnElement.innerText = originalText;
+        btnElement.style.background = "";
+    }, 2500);
+}
+
+// Initialize Weather, Events & Calculator on page load
 document.addEventListener('DOMContentLoaded', () => {
     loadWeather();
     loadEvents();
+    calculateBerlinCost();
 });
+
 
 

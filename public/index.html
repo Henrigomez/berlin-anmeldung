@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berlin Termine & Expat Bureaucracy Hub | Free Anmeldung Alerts & PDF Generator</title>
-    <meta name="description" content="Never miss a Bürgeramt registration appointment in Berlin. Get instant email/Telegram alerts, check live Berlin weather & weekly events, and generate your official Anmeldeformular PDF online.">
+    <meta name="description" content="Never miss a Bürgeramt registration appointment in Berlin. Get instant email/Telegram alerts, check live Berlin weather & weekly events, calculate rent & cost of living, and generate your official Anmeldeformular PDF online.">
     <!-- Google Fonts Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -287,6 +287,104 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE BERLIN COST OF LIVING & RENT CALCULATOR -->
+        <section class="calculator-section">
+            <div class="section-header">
+                <span class="section-tag" style="color: var(--accent-emerald);">INTERACTIVE TOOL</span>
+                <h2>💶 Berlin Rent & Living Cost Estimator</h2>
+                <p style="color: var(--text-secondary);">Calculate your expected monthly expenses in Berlin by neighborhood and flat size.</p>
+            </div>
+
+            <div class="calc-card">
+                <div class="calc-inputs">
+                    <div class="form-group">
+                        <label>Select Neighborhood (Bezirk)</label>
+                        <select id="calcDistrict" onchange="calculateBerlinCost()">
+                            <option value="neukoelln">Neukölln / Kreuzberg (Hip / Moderate)</option>
+                            <option value="mitte">Mitte / Prenzlauer Berg (Central / Prime)</option>
+                            <option value="charlottenburg">Charlottenburg / Wilmersdorf (Classic West)</option>
+                            <option value="wedding">Wedding / Moabit (Budget-Friendly)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Flat Size: <strong id="calcSquareMetersVal">45 m²</strong> (1-2 Rooms)</label>
+                        <input type="range" id="calcSquareMeters" min="20" max="120" step="5" value="45" oninput="calculateBerlinCost()">
+                    </div>
+                </div>
+
+                <div class="calc-results">
+                    <div class="calc-result-item">
+                        <span>Estimated Warm Rent (Warmmiete):</span>
+                        <strong id="resWarmRent" style="color: var(--accent-amber);">€ 890 / mo</strong>
+                    </div>
+                    <div class="calc-result-item">
+                        <span>Utilities (Strom + Internet):</span>
+                        <strong id="resUtilities" style="color: var(--accent-cyan);">€ 110 / mo</strong>
+                    </div>
+                    <div class="calc-result-item">
+                        <span>Monthly Transport (Deutschlandticket):</span>
+                        <strong id="resTransport" style="color: var(--accent-emerald);">€ 49 / mo</strong>
+                    </div>
+                    <div class="calc-result-item total">
+                        <span>Estimated Monthly Total:</span>
+                        <strong id="resTotalCost" style="color: var(--accent-rose);">€ 1,049 / mo</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GERMAN FORMAL LETTER TEMPLATE GENERATOR (ONE-CLICK COPY) -->
+        <section class="templates-section">
+            <div class="section-header">
+                <span class="section-tag" style="color: var(--accent-indigo);">1-CLICK TEMPLATES</span>
+                <h2>✉️ Official German Email & Letter Templates</h2>
+                <p style="color: var(--text-secondary);">Copy ready-to-send formal German letters for landlords, Bürgeramt, and utility providers.</p>
+            </div>
+
+            <div class="templates-grid">
+                <!-- Template 1 -->
+                <div class="template-card">
+                    <div class="template-header">
+                        <h4>📝 Request Landlord Confirmation</h4>
+                        <span class="template-tag">Wohnungsgeberbestätigung</span>
+                    </div>
+                    <p class="template-desc">Use this email to ask your landlord or primary tenant for the mandatory signed landlord form for Anmeldung.</p>
+                    <textarea class="template-textarea" id="tpl1" readonly>Sehr geehrte/r Damen und Herren,
+
+ich habe vor Kurzem meine neue Wohnung bezogen und bereite meinen Termin zur Wohnsitzanmeldung beim Bürgeramt vor.
+
+Hierfür benötige ich gemäß § 19 Bundesmeldegesetz die ausgefüllte und unterschriebene Wohnungsgeberbestätigung.
+
+Könnten Sie mir dieses Dokument freundlicherweise in den nächsten Tagen per E-Mail oder Post zukommen lassen?
+
+Vielen Dank für Ihre Unterstützung!
+
+Mit freundlichen Grüßen,</textarea>
+                    <button class="plan-btn primary" onclick="copyTemplate('tpl1', this)">Copy German Template 📋</button>
+                </div>
+
+                <!-- Template 2 -->
+                <div class="template-card">
+                    <div class="template-header">
+                        <h4>🏛️ Email Bürgeramt for Urgent Appointment</h4>
+                        <span class="template-tag">Eiliger Termin</span>
+                    </div>
+                    <p class="template-desc">Send this to your local Bürgeramt if your visa or employment deadline requires urgent address registration.</p>
+                    <textarea class="template-textarea" id="tpl2" readonly>Sehr geehrte Damen und Herren,
+
+aufgrund eines bevorstehenden Arbeitsbeginns / Visumsfrist benötige ich dringend einen Termin zur Wohnsitzanmeldung (Anmeldung einer Wohnung).
+
+Leider konnte ich über das Online-Portal bisher keinen freien Termin finden. Da die Vorlage der Meldebestätigung zwingend erforderlich ist, bitte ich höflich um die Zuweisung eines kurzfristigen Stornotermins.
+
+Vielen Dank im Voraus für Ihre Hilfe.
+
+Mit freundlichen Grüßen,</textarea>
+                    <button class="plan-btn primary" onclick="copyTemplate('tpl2', this)">Copy German Template 📋</button>
+                </div>
             </div>
         </section>
 
