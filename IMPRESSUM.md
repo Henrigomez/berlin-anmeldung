@@ -5,7 +5,7 @@ Conforme a la obligación de identificación legal bajo el § 5 de la Ley de Ser
 ---
 
 ## Betreiber (Operator)
-**Henri Saah Gomez Amsatu**  
+**Henri Gomez Amsatu**  
 Berlin, Deutschland  
 
 ---

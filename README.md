@@ -101,4 +101,4 @@ Navigating bureaucracy in Berlin is notoriously challenging for expats and new r
 
 ## 👨‍💻 Author
 
-Developed with ❤️ by **Henry Saah**.
+Developed with ❤️ by **Henri Gomez**.

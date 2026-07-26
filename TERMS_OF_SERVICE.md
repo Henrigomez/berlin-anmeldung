@@ -7,7 +7,7 @@ Welcome to **Berlin Termine & Expat Bureaucracy Hub** ("Service"). By accessing 
 ---
 
 ## 1. Scope and Operator
-This website is operated by Henri Saah Gomez Amsatu (Berlin, Germany). These terms govern all services, subscriptions, and tools provided on this portal.
+This website is operated by Henri Gomez Amsatu (Berlin, Germany). These terms govern all services, subscriptions, and tools provided on this portal.
 
 ---
 

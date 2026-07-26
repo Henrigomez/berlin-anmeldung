@@ -1179,7 +1179,123 @@ footer {
     font-size: 0.82rem;
     resize: none;
     line-height: 1.4;
+    word-break: break-word;
 }
+
+/* Global Typography & Layout Overflow Protections */
+h1, h2, h3, h4, h5, h6, p, span, a, label, button, input, select, textarea {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Comprehensive Responsive Media Queries */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    .pricing-grid, .events-grid, .templates-grid, .benefits-grid, .news-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+    .navbar {
+        padding: 15px 0;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .hero {
+        padding: 40px 0 25px 0;
+    }
+    .hero-title {
+        font-size: 2.2rem;
+        line-height: 1.25;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+    .subscribe-card {
+        padding: 20px 16px;
+    }
+    .subscribe-form {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .subscribe-input, .subscribe-btn {
+        width: 100%;
+    }
+    .status-strip {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .status-card {
+        padding: 14px 18px;
+    }
+    .weather-card-hero {
+        padding: 20px 16px;
+    }
+    .temp-val {
+        font-size: 2.8rem;
+    }
+    .weather-forecast-strip {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        overflow-x: auto;
+    }
+    .pricing-grid, .events-grid, .templates-grid, .benefits-grid, .news-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .pricing-card, .event-card, .template-card, .benefit-card, .news-card {
+        padding: 20px 16px;
+    }
+    .calc-card {
+        padding: 20px 16px;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .pdf-generator-section {
+        padding: 20px 16px;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .form-group input, .form-group select {
+        font-size: 0.95rem;
+    }
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .logo {
+        font-size: 1.2rem;
+    }
+    .lang-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    .plan-price {
+        font-size: 2rem;
+    }
+    .template-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
 
 
 

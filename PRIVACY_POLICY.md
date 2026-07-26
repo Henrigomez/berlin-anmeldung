@@ -2,13 +2,13 @@
 
 **Last Updated:** July 26, 2026
 
-We take the protection of your personal data very seriously. This Privacy Policy explains how **Berlin Termine & Expat Bureaucracy Hub** (operated by Henri Saah Gomez Amsatu) collects, processes, and protects your personal data when you visit our website, subscribe to our alert system, generate PDF forms, or make payments.
+We take the protection of your personal data very seriously. This Privacy Policy explains how **Berlin Termine & Expat Bureaucracy Hub** (operated by Henri Gomez Amsatu) collects, processes, and protects your personal data when you visit our website, subscribe to our alert system, generate PDF forms, or make payments.
 
 ---
 
 ## 1. Controller / Verantwortlicher
 The responsible controller for processing personal data under the General Data Protection Regulation (GDPR) is:
-- **Operator:** Henri Saah Gomez Amsatu
+- **Operator:** Henri Gomez Amsatu
 - **Contact Email:** henrysaahgomez@outlook.es
 - **Location:** Berlin, Germany
 
