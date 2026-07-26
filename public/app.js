@@ -519,3 +519,38 @@ function filterNews(category, btnElement) {
     btnElement.classList.add('active');
     renderNews(category);
 }
+
+function scrollToSubscribe() {
+    document.getElementById('subscribeForm').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function buyVIPPlan(event) {
+    const btn = event.currentTarget;
+    const originalText = btn.innerText;
+    btn.innerText = "Redirecting to Stripe... 💳";
+    btn.disabled = true;
+
+    const emailInput = document.getElementById('emailInput')?.value || '';
+
+    try {
+        const response = await fetch('/api/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: emailInput })
+        });
+
+        const data = await response.json();
+        if (data.success && data.url) {
+            window.location.href = data.url;
+        } else {
+            alert("Payment initiation error: " + (data.error || "Please try again."));
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    } catch (e) {
+        alert("Failed to connect to checkout: " + e.message);
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}
+

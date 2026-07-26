@@ -4,6 +4,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const db = require('./db');
 const { generateAnmeldungPDF } = require('./pdf_generator');
+const { createCheckoutSession } = require('./stripe');
 
 dotenv.config();
 
@@ -81,6 +82,24 @@ app.post('/api/subscribe', async (req, res) => {
         });
     } catch (e) {
         res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+// API: Stripe Checkout Session Endpoint
+app.post('/api/create-checkout-session', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const origin = req.headers.origin || 'https://berlinanmeldung.com';
+        const result = await createCheckoutSession(email, origin);
+        
+        if (result.success) {
+            res.json({ success: true, url: result.url, simulated: result.simulated });
+        } else {
+            res.status(500).json({ success: false, error: result.error });
+        }
+    } catch (e) {
+        console.error("Stripe Session Error:", e);
+        res.status(500).json({ success: false, error: "Failed to initiate payment." });
     }
 });
 

@@ -789,3 +789,116 @@ footer {
     .pdf-generator-section { padding: 25px; }
     .form-row { flex-direction: column; gap: 15px; }
 }
+
+/* Pricing & VIP Monetization Section */
+.pricing-section {
+    margin-bottom: 80px;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pricing-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 35px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(16px);
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-card);
+}
+
+.pricing-card.vip {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 2px solid var(--accent-amber);
+    box-shadow: 0 0 35px rgba(245, 158, 11, 0.2);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -14px;
+    right: 25px;
+    background: linear-gradient(135deg, var(--accent-amber), #d97706);
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 900;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+.plan-header h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.plan-price {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent-cyan);
+    margin-bottom: 8px;
+}
+
+.pricing-card.vip .plan-price {
+    color: var(--accent-amber);
+}
+
+.plan-price span {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.plan-features {
+    list-style: none;
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.plan-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.plan-btn.primary {
+    background: linear-gradient(135deg, var(--accent-amber), #d97706);
+    color: #000;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+}
+
+.plan-btn.primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 25px rgba(245, 158, 11, 0.6);
+}
+
+.plan-btn.secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+}
+
