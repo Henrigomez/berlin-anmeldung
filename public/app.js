@@ -411,9 +411,9 @@ let gainNode = null;
 let synthInterval = null;
 
 const TRACKS = [
-    { name: "🌆 Berlin Midnight Lo-Fi", type: "synth", chord: [261.63, 329.63, 392.00, 493.88] }, // Cmaj7
-    { name: "🌧️ Spree River Rain & Synths", type: "synth", chord: [174.61, 220.00, 261.63, 329.63] }, // Fmaj7
-    { name: "☕ Brandenburg Gate Focus", type: "synth", chord: [220.00, 261.63, 329.63, 392.00] } // Am7
+    { name: "🌆 Berlin Midnight Chill", type: "synth", chord: [130.81, 164.81, 196.00, 246.94] }, // Deep Cmaj7 warm sub pad
+    { name: "🌧️ Spree River Calm", type: "synth", chord: [146.83, 174.61, 220.00, 261.63] }, // Dm7 warm pad
+    { name: "☕ Tiergarten Relax Focus", type: "synth", chord: [110.00, 130.81, 164.81, 196.00] } // Am7 deep relaxing pad
 ];
 
 function toggleAudioPlayer() {
@@ -426,7 +426,7 @@ function initAudioContext() {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         audioCtx = new AudioContext();
         gainNode = audioCtx.createGain();
-        gainNode.gain.value = 0.5;
+        gainNode.gain.value = 0.35;
         gainNode.connect(audioCtx.destination);
     }
 }
@@ -470,31 +470,41 @@ function playAmbientPad() {
 
     const track = TRACKS[currentTrackIndex];
     
-    // Play warm ambient chord
+    // Play warm, soothing lo-fi analog pad with Lowpass Filter
     const playChord = () => {
         if (!isPlayingAudio) return;
+
+        // Biquad Lowpass filter removes all harsh high frequencies
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(320, audioCtx.currentTime); // Soft warm 320Hz cut
+
         track.chord.forEach((freq, i) => {
             const osc = audioCtx.createOscillator();
             const noteGain = audioCtx.createGain();
             
-            osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+            // Pure sine wave for deep relaxing acoustic feel
+            osc.type = 'sine';
             osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
             
+            // Soft gradual fade-in (3.5s) and fade-out (3.5s)
             noteGain.gain.setValueAtTime(0, audioCtx.currentTime);
-            noteGain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 2);
-            noteGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 5);
+            noteGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 3.5);
+            noteGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 7);
             
             osc.connect(noteGain);
-            noteGain.connect(gainNode);
+            noteGain.connect(filter);
+            filter.connect(gainNode);
             
             osc.start();
-            osc.stop(audioCtx.currentTime + 5.5);
+            osc.stop(audioCtx.currentTime + 7.2);
         });
     };
 
     playChord();
-    synthInterval = setInterval(playChord, 5000);
+    synthInterval = setInterval(playChord, 6500);
 }
+
 
 function nextTrack() {
     currentTrackIndex = (currentTrackIndex + 1) % TRACKS.length;
