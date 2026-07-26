@@ -547,15 +547,105 @@ async function buyVIPPlan(event) {
             btn.innerText = originalText;
             btn.disabled = false;
         }
+    } catch (e) {
+        alert("Failed to connect to checkout: " + e.message);
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}
+
+const FALLBACK_EVENTS = [
+    {
+        id: "evt-1",
+        title: "Berlin Summer Sunset Open-Air Festival",
+        category: "Music & Nightlife",
+        date: "Saturday, July 29, 2026",
+        time: "16:00 - 23:00",
+        location: "Tempelhofer Feld, Neukölln",
+        price: "Free Entry / Spende",
+        badge: "FEATURED",
+        icon: "🎵",
+        description: "Join thousands of Berliners at Tempelhof airfield for sunset lo-fi beats, food trucks, and open-air electronic music."
+    },
+    {
+        id: "evt-2",
+        title: "Kreuzberg Street Food & Vintage Flea Market",
+        category: "Food & Markets",
+        date: "Sunday, July 30, 2026",
+        time: "11:00 - 18:00",
+        location: "Markthalle Neun, Kreuzberg",
+        price: "Free Entry",
+        badge: "POPULAR",
+        icon: "🍔",
+        description: "Explore Berlin's vibrant street food scene with international dishes, artisan coffee, and curated vintage clothing stalls."
+    },
+    {
+        id: "evt-3",
+        title: "Berlin Tech Expat Networking & Founders Drinks",
+        category: "Tech & Networking",
+        date: "Thursday, July 27, 2026",
+        time: "19:00 - 22:00",
+        location: "Factory Berlin Mitte, Rheinsberger Str.",
+        price: "Free RSVP",
+        badge: "NETWORKING",
+        icon: "🚀",
+        description: "Connect with software engineers, product managers, and international founders living in Berlin over craft beer."
+    },
+    {
+        id: "evt-4",
+        title: "Museum Island Late-Night Art & Light Exhibition",
+        category: "Culture & Art",
+        date: "Friday, July 28, 2026",
+        time: "20:00 - 01:00",
+        location: "Museumsinsel (Pergamon & Bode Museum)",
+        price: "12 € / Discounted",
+        badge: "CULTURE",
+        icon: "🎨",
+        description: "Nighttime guided tours, illuminated neoclassical courtyards, and live acoustic violin performances."
+    }
+];
+
+function renderEventsList(events) {
+    const grid = document.getElementById('eventsGrid');
+    if (!grid) return;
+    grid.innerHTML = events.map(evt => `
+        <div class="event-card">
+            <div>
+                <div class="event-header">
+                    <span class="event-badge">${evt.badge}</span>
+                    <span style="font-size: 1.5rem;">${evt.icon}</span>
+                </div>
+                <h3 class="event-title" style="margin-top: 10px;">${evt.title}</h3>
+            </div>
+
+            <div class="event-meta">
+                <div class="event-meta-item">
+                    <span>📅</span> <strong>${evt.date}</strong>
+                </div>
+                <div class="event-meta-item">
+                    <span>⏰</span> <span>${evt.time}</span>
+                </div>
+                <div class="event-meta-item">
+                    <span>📍</span> <span>${evt.location}</span>
+                </div>
+                <div class="event-meta-item">
+                    <span>🎟️</span> <span style="color: var(--accent-emerald); font-weight: 700;">${evt.price}</span>
+                </div>
+            </div>
+
+            <p class="event-desc">${evt.description}</p>
+        </div>
+    `).join('');
+}
+
 async function loadWeather() {
     try {
         const res = await fetch('/api/weather');
         const data = await res.json();
-        if (data.success) {
+        if (data.success && data.current) {
             const cur = data.current;
             document.getElementById('weatherCurrentTemp').innerText = `${cur.temp}°C`;
             
-            // Map weathercode to emoji & description
             const weatherMap = {
                 0: { icon: "☀️", desc: "Clear & Sunny Sky" },
                 1: { icon: "🌤️", desc: "Mainly Clear & Mild" },
@@ -569,7 +659,6 @@ async function loadWeather() {
             document.getElementById('weatherIcon').innerText = wInfo.icon;
             document.getElementById('weatherDesc').innerText = `${wInfo.desc} • Wind ${cur.windspeed} km/h`;
 
-            // Render 7-day forecast
             const forecastStrip = document.getElementById('weatherForecastStrip');
             if (forecastStrip && data.daily) {
                 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -593,44 +682,15 @@ async function loadWeather() {
 }
 
 async function loadEvents() {
+    renderEventsList(FALLBACK_EVENTS);
     try {
         const res = await fetch('/api/events');
         const data = await res.json();
-        if (data.success && data.events) {
-            const grid = document.getElementById('eventsGrid');
-            if (grid) {
-                grid.innerHTML = data.events.map(evt => `
-                    <div class="event-card">
-                        <div>
-                            <div class="event-header">
-                                <span class="event-badge">${evt.badge}</span>
-                                <span style="font-size: 1.5rem;">${evt.icon}</span>
-                            </div>
-                            <h3 class="event-title" style="margin-top: 10px;">${evt.title}</h3>
-                        </div>
-
-                        <div class="event-meta">
-                            <div class="event-meta-item">
-                                <span>📅</span> <strong>${evt.date}</strong>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>⏰</span> <span>${evt.time}</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>📍</span> <span>${evt.location}</span>
-                            </div>
-                            <div class="event-meta-item">
-                                <span>🎟️</span> <span style="color: var(--accent-emerald); font-weight: 700;">${evt.price}</span>
-                            </div>
-                        </div>
-
-                        <p class="event-desc">${evt.description}</p>
-                    </div>
-                `).join('');
-            }
+        if (data.success && data.events && data.events.length > 0) {
+            renderEventsList(data.events);
         }
     } catch (e) {
-        console.warn("Events load error:", e);
+        console.warn("Events API fallback active:", e);
     }
 }
 
@@ -646,7 +706,6 @@ function calculateBerlinCost() {
 
     document.getElementById('calcSquareMetersVal').innerText = `${sqm} m²`;
 
-    // Price per sqm by neighborhood in Berlin (Warmmiete estimate)
     const rateMap = {
         neukoelln: 18.5,
         mitte: 24.0,
@@ -656,8 +715,8 @@ function calculateBerlinCost() {
 
     const rate = rateMap[district] || 18.0;
     const warmRent = Math.round(sqm * rate);
-    const utilities = Math.round(60 + (sqm * 1.2)); // Electricity + Internet estimate
-    const transport = 49; // Deutschlandticket
+    const utilities = Math.round(60 + (sqm * 1.2));
+    const transport = 49;
     const total = warmRent + utilities + transport;
 
     document.getElementById('resWarmRent').innerText = `€ ${warmRent.toLocaleString()} / mo`;
@@ -684,12 +743,23 @@ function copyTemplate(elementId, btnElement) {
     }, 2500);
 }
 
+// Unlock audio context on mobile touch or click
+function unlockAudioOnTouch() {
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
 // Initialize Weather, Events & Calculator on page load
 document.addEventListener('DOMContentLoaded', () => {
     loadWeather();
     loadEvents();
     calculateBerlinCost();
+
+    document.addEventListener('touchstart', unlockAudioOnTouch, { once: true });
+    document.addEventListener('click', unlockAudioOnTouch, { once: true });
 });
+
 
 
 
