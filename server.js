@@ -121,8 +121,13 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`====================================================`);
-    console.log(`🚀 Berlin Termine Luxury Portal running at http://localhost:${PORT}`);
-    console.log(`====================================================`);
-});
+// Export Express app for Vercel Serverless Function handler
+module.exports = app;
+
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`====================================================`);
+        console.log(`🚀 Berlin Termine Luxury Portal running at http://localhost:${PORT}`);
+        console.log(`====================================================`);
+    });
+}
