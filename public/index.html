@@ -67,6 +67,12 @@
                         id="telegramInput" 
                         placeholder="Telegram @username (optional)..." 
                     >
+                    <div class="gdpr-consent-container" style="display: flex; align-items: flex-start; gap: 8px; margin-top: 15px; width: 100%; text-align: left; font-size: 0.85rem; color: var(--text-secondary);">
+                        <input type="checkbox" id="gdprCheckbox" required style="margin-top: 3px; cursor: pointer;">
+                        <label for="gdprCheckbox" style="cursor: pointer; line-height: 1.4;">
+                            I agree to the <a href="privacy.html" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Privacy Policy</a> and consent to receiving automated email & Telegram alerts.
+                        </label>
+                    </div>
                     <button type="submit" class="subscribe-btn" data-i18n="subscribeBtn">
                         Get Free Alerts ⚡
                     </button>
@@ -538,12 +544,19 @@ Mit freundlichen Grüßen,</textarea>
     </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>© 2026 Berlin Termine Pro. Automated Bürgeramt Appointment Alert Service & Expat Bureaucracy Platform.</p>
+    <footer style="margin-top: 80px; padding: 40px 0; border-top: 1px solid var(--border-color); background: rgba(9, 13, 22, 0.9);">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center;">
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">© 2026 Berlin Termine Pro. Automated Bürgeramt Appointment Alert Service & Expat Bureaucracy Platform.</p>
+            <div class="footer-links" style="display: flex; gap: 20px; font-size: 0.85rem;">
+                <a href="impressum.html" style="color: var(--text-muted); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--accent-cyan)'" onmouseout="this.style.color='var(--text-muted)'">Impressum / Legal Notice</a>
+                <span style="color: var(--text-muted);">|</span>
+                <a href="privacy.html" style="color: var(--text-muted); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--accent-cyan)'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy / Datenschutz</a>
+                <span style="color: var(--text-muted);">|</span>
+                <a href="terms.html" style="color: var(--text-muted); text-decoration: none; transition: var(--transition);" onmouseover="this.style.color='var(--accent-cyan)'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service / AGB</a>
+            </div>
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=3"></script>
 </body>
 </html>
