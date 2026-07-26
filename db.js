@@ -1,11 +1,20 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
-const SUBSCRIBERS_FILE = path.join(__dirname, 'subscribers.json');
+// Use /tmp on serverless environments (Vercel, AWS Lambda) or fallback to local dir
+const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+const SUBSCRIBERS_FILE = isServerless 
+    ? path.join(os.tmpdir(), 'subscribers.json') 
+    : path.join(__dirname, 'subscribers.json');
+
 const SERVICE_ACCOUNT_PATH = path.join(__dirname, 'serviceAccountKey.json');
 
 let db = null;
 let useFirebase = false;
+
+// In-memory array fallback if filesystem is completely read-only
+let memorySubscribers = [];
 
 try {
     if (fs.existsSync(SERVICE_ACCOUNT_PATH)) {
@@ -20,34 +29,45 @@ try {
         useFirebase = true;
         console.log('[Database] Connected to Firebase Firestore.');
     } else {
-        console.log('[Database] serviceAccountKey.json not found. Using local subscribers.json storage.');
+        console.log('[Database] serviceAccountKey.json not found. Using local/tmp subscribers storage.');
     }
 } catch (e) {
     console.error('[Database Error] Firebase init failed, using local storage fallback:', e.message);
 }
 
-// Ensure local file exists
-if (!fs.existsSync(SUBSCRIBERS_FILE)) {
-    fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify([], null, 2));
+// Safely ensure local/tmp file exists
+try {
+    if (!fs.existsSync(SUBSCRIBERS_FILE)) {
+        fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify([], null, 2));
+    }
+} catch (err) {
+    console.warn('[Database Warning] Could not write subscribers file, using memory storage:', err.message);
 }
 
 function getLocalSubscribers() {
     try {
-        const data = fs.readFileSync(SUBSCRIBERS_FILE, 'utf8');
-        return JSON.parse(data);
+        if (fs.existsSync(SUBSCRIBERS_FILE)) {
+            const data = fs.readFileSync(SUBSCRIBERS_FILE, 'utf8');
+            return JSON.parse(data);
+        }
     } catch (e) {
-        return [];
+        // Fallback to memory
     }
+    return memorySubscribers;
 }
 
 function saveLocalSubscribers(list) {
-    fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify(list, null, 2));
+    try {
+        fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify(list, null, 2));
+    } catch (e) {
+        memorySubscribers = list;
+    }
 }
 
 async function addSubscriber(email) {
     const emailNormalized = email.toLowerCase().trim();
     
-    // Save locally
+    // Save locally/memory
     const localList = getLocalSubscribers();
     const existsLocal = localList.some(s => s.email === emailNormalized);
     if (!existsLocal) {
@@ -81,7 +101,7 @@ async function getSubscriberEmails() {
         }
     }
     
-    // Fallback to local
+    // Fallback to local/memory
     const localList = getLocalSubscribers();
     return localList.map(s => s.email);
 }
