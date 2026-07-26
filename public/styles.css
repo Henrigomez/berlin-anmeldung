@@ -242,12 +242,22 @@ body {
 
 .subscribe-form {
     display: flex;
-    gap: 12px;
+    flex-direction: column;
+    gap: 16px;
     margin-top: 20px;
+    width: 100%;
+}
+
+.subscribe-inputs-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
 }
 
 .subscribe-input {
     flex: 1;
+    min-width: 180px;
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid var(--border-color);
     padding: 16px 20px;
@@ -264,6 +274,8 @@ body {
 }
 
 .subscribe-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
     background: var(--gradient-hero);
     color: #090d16;
     font-weight: 800;
@@ -273,9 +285,9 @@ body {
     border-radius: var(--radius-md);
     cursor: pointer;
     transition: var(--transition);
-    white-space: nowrap;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
@@ -283,6 +295,29 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
 }
+
+.gdpr-consent-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.gdpr-consent-container input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent-cyan);
+    cursor: pointer;
+}
+
+.gdpr-consent-container a {
+    color: var(--accent-cyan);
+    text-decoration: underline;
+}
+
 
 .form-feedback {
     margin-top: 15px;
@@ -784,6 +819,7 @@ footer {
 @media (max-width: 768px) {
     .hero-title { font-size: 2.3rem; }
     .subscribe-form { flex-direction: column; }
+    .subscribe-inputs-row { flex-direction: column; gap: 12px; }
     .subscribe-card { padding: 25px; }
     .checklist-section { padding: 25px; }
     .pdf-generator-section { padding: 25px; }

@@ -53,29 +53,31 @@
             <!-- Instant Alert Subscription Card -->
             <div class="subscribe-card">
                 <form class="subscribe-form" id="subscribeForm">
-                    <input 
-                        type="email" 
-                        class="subscribe-input" 
-                        id="emailInput" 
-                        placeholder="Enter your email address..." 
-                        data-i18n-placeholder="inputPlaceholder" 
-                        required
-                    >
-                    <input 
-                        type="text" 
-                        class="subscribe-input" 
-                        id="telegramInput" 
-                        placeholder="Telegram @username (optional)..." 
-                    >
-                    <div class="gdpr-consent-container" style="display: flex; align-items: flex-start; gap: 8px; margin-top: 15px; width: 100%; text-align: left; font-size: 0.85rem; color: var(--text-secondary);">
-                        <input type="checkbox" id="gdprCheckbox" required style="margin-top: 3px; cursor: pointer;">
-                        <label for="gdprCheckbox" style="cursor: pointer; line-height: 1.4;">
-                            I agree to the <a href="privacy.html" target="_blank" style="color: var(--accent-cyan); text-decoration: underline;">Privacy Policy</a> and consent to receiving automated email & Telegram alerts.
+                    <div class="subscribe-inputs-row">
+                        <input 
+                            type="email" 
+                            class="subscribe-input" 
+                            id="emailInput" 
+                            placeholder="Enter your email address..." 
+                            data-i18n-placeholder="inputPlaceholder" 
+                            required
+                        >
+                        <input 
+                            type="text" 
+                            class="subscribe-input" 
+                            id="telegramInput" 
+                            placeholder="Telegram @username (optional)..." 
+                        >
+                        <button type="submit" class="subscribe-btn" data-i18n="subscribeBtn">
+                            Get Free Alerts ⚡
+                        </button>
+                    </div>
+                    <div class="gdpr-consent-container">
+                        <input type="checkbox" id="gdprCheckbox" required>
+                        <label for="gdprCheckbox">
+                            I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a> and consent to receiving automated email & Telegram alerts.
                         </label>
                     </div>
-                    <button type="submit" class="subscribe-btn" data-i18n="subscribeBtn">
-                        Get Free Alerts ⚡
-                    </button>
                 </form>
                 <div class="form-feedback" id="formFeedback"></div>
             </div>
@@ -557,6 +559,6 @@ Mit freundlichen Grüßen,</textarea>
         </div>
     </footer>
 
-    <script src="app.js?v=4"></script>
+    <script src="app.js?v=5"></script>
 </body>
 </html>
