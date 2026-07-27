@@ -17,6 +17,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/email-preview', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'email-preview.html'));
+});
+app.get('/email-preview.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'email-preview.html'));
+});
+
 // Mock/Dynamic News database about Berlin Bureaucracy & Expat Life
 const NEWS_ITEMS = [
     {
