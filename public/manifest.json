@@ -1,6 +1,7 @@
 {
   "name": "Berlin Termine Pro - Bürgeramt & Expat Hub",
   "short_name": "BerlinTermine",
+  "id": "com.berlinanmeldung.app",
   "description": "Instant Bürgeramt registration appointment alerts, Anmeldeformular PDF generator, and expat living calculator in Berlin.",
   "start_url": "/",
   "display": "standalone",
