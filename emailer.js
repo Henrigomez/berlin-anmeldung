@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_APP_PASSWORD = process.env.EMAIL_APP_PASSWORD;
+const EMAIL_APP_PASSWORD = process.env.EMAIL_APP_PASSWORD || process.env.EMAIL_PASS;
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
