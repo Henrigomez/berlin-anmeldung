@@ -29,6 +29,10 @@ app.get('/robots.txt', (req, res) => {
 app.get('/email-preview', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'email-preview.html'));
 });
+
+app.get('/play-graphics', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'play-graphics.html'));
+});
 app.get('/email-preview.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'email-preview.html'));
 });

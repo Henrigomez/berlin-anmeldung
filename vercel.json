@@ -20,6 +20,10 @@
       "dest": "/public/play_assets/$1"
     },
     {
+      "src": "/play-graphics(.*)",
+      "dest": "server.js"
+    },
+    {
       "src": "/sitemap.xml",
       "dest": "server.js"
     },

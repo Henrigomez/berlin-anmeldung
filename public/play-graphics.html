@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Play Assets | Berlin Termine Pro</title>
+    <style>
+        body { font-family: Inter, system-ui, sans-serif; background-color: #090d16; color: #f8fafc; padding: 30px 15px; margin: 0; display: flex; flex-direction: column; align-items: center; }
+        .container { max-width: 800px; width: 100%; }
+        h1 { color: #38bdf8; text-align: center; font-size: 1.8rem; margin-bottom: 8px; }
+        p.subtitle { color: #94a3b8; text-align: center; margin-bottom: 30px; }
+        .asset-card { background: #0f172a; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 25px; margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .asset-card h3 { color: #fbbf24; margin: 0 0 10px 0; font-size: 1.2rem; }
+        .asset-card p { color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px; }
+        .img-preview { max-width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 18px; }
+        .download-btn { background: linear-gradient(135deg, #38bdf8, #818cf8); color: #000; font-weight: 800; text-decoration: none; padding: 12px 24px; border-radius: 10px; font-size: 0.95rem; display: inline-block; }
+        .download-btn:hover { transform: scale(1.03); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Google Play Store - Visual Assets</h1>
+        <p class="subtitle">Descarga o guarda estas imágenes para subirlas a tu ficha de Google Play Console.</p>
+
+        <!-- 1. Icono -->
+        <div class="asset-card">
+            <h3>1. Icono de la Aplicación (512 x 512 px)</h3>
+            <p>Formato oficial de icono para la Google Play Store.</p>
+            <img src="/play_assets/app_icon_512.jpg" alt="App Icon 512x512" class="img-preview" style="max-width: 180px;">
+            <a href="/play_assets/app_icon_512.jpg" download="app_icon_512.jpg" target="_blank" class="download-btn">⬇️ Descargar Icono (512x512)</a>
+        </div>
+
+        <!-- 2. Feature Graphic -->
+        <div class="asset-card">
+            <h3>2. Gráfico de Funciones / Banner Promocional (1024 x 500 px)</h3>
+            <p>Banner destacado de la cabecera de la tienda de Google Play.</p>
+            <img src="/play_assets/feature_graphic_1024.jpg" alt="Feature Graphic 1024x500" class="img-preview">
+            <a href="/play_assets/feature_graphic_1024.jpg" download="feature_graphic_1024.jpg" target="_blank" class="download-btn">⬇️ Descargar Banner (1024x500)</a>
+        </div>
+
+        <!-- 3. Screenshot -->
+        <div class="asset-card">
+            <h3>3. Captura de Pantalla para Teléfono (9:16)</h3>
+            <p>Captura de interfaz para mostrar en la ficha del producto.</p>
+            <img src="/play_assets/mobile_screenshot_1.jpg" alt="Mobile Screenshot" class="img-preview" style="max-width: 250px;">
+            <a href="/play_assets/mobile_screenshot_1.jpg" download="mobile_screenshot_1.jpg" target="_blank" class="download-btn">⬇️ Descargar Captura Móvil</a>
+        </div>
+    </div>
+</body>
+</html>
