@@ -17,6 +17,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/sitemap.xml', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
+app.get('/robots.txt', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+
 app.get('/email-preview', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'email-preview.html'));
 });
