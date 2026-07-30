@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archivos PNG Oficiales para Google Play | Berlin Termine Pro</title>
+    <title>Nuevos Logos de Lujo | Berlin Termine Pro</title>
     <style>
         body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background-color: #090d16; color: #f8fafc; padding: 40px 20px; margin: 0; display: flex; flex-direction: column; align-items: center; }
-        .container { max-width: 850px; width: 100%; }
+        .container { max-width: 900px; width: 100%; }
         .header-box { text-align: center; margin-bottom: 35px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 25px; }
         h1 { color: #f8fafc; font-size: 2.2rem; font-weight: 900; margin: 0 0 10px 0; letter-spacing: -0.5px; }
         h1 span { color: #f59e0b; }
@@ -16,14 +16,19 @@
         .zip-box h2 { color: #fff; margin: 0 0 10px 0; font-size: 1.5rem; font-weight: 800; }
         .zip-box p { color: #c7d2fe; font-size: 0.95rem; margin: 0 0 20px 0; }
         .zip-btn { background: #6366f1; color: #fff; font-weight: 900; text-decoration: none; padding: 16px 36px; border-radius: 12px; font-size: 1.1rem; display: inline-block; box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5); text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s; }
-        .zip-btn:hover { background: #4f46e5; transform: translateY(-2px); }
+
+        .logo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin-bottom: 45px; }
+        .logo-card { background: #0f172a; border: 2px solid rgba(245, 158, 11, 0.4); border-radius: 20px; padding: 25px; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
+        .logo-card h4 { color: #fbbf24; margin: 0 0 10px 0; font-size: 1.2rem; font-weight: 800; }
+        .logo-card p { color: #94a3b8; font-size: 0.85rem; margin: 0 0 15px 0; height: 36px; }
+        .logo-img { width: 180px; height: 180px; border-radius: 20px; margin-bottom: 20px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.8); }
+        .download-sm-btn { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000; font-weight: 900; text-decoration: none; padding: 10px 20px; border-radius: 10px; font-size: 0.85rem; text-transform: uppercase; }
 
         .asset-card { background: #0f172a; border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 18px; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-bottom: 35px; }
         .asset-card h3 { color: #f59e0b; margin: 0 0 8px 0; font-size: 1.35rem; font-weight: 800; }
         .asset-card p { color: #cbd5e1; font-size: 0.92rem; margin: 0 0 20px 0; line-height: 1.4; }
         .img-preview { max-width: 100%; height: auto; border-radius: 14px; border: 2px solid rgba(245, 158, 11, 0.5); box-shadow: 0 12px 35px rgba(0,0,0,0.8); margin-bottom: 22px; }
-        .download-btn { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000; font-weight: 900; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-size: 0.95rem; display: inline-block; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); text-transform: uppercase; letter-spacing: 0.5px; }
-        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(245, 158, 11, 0.7); }
+        .download-btn { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #000; font-weight: 900; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-size: 0.95rem; display: inline-block; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); text-transform: uppercase; }
         .badge-exact { background: #10b981; color: #000; font-weight: 900; font-size: 12px; padding: 5px 12px; border-radius: 12px; margin-left: 8px; text-transform: uppercase; }
     </style>
 </head>
@@ -31,29 +36,45 @@
     <div class="container">
         <div class="header-box">
             <h1>BERLIN<span>TERMINE</span> PRO</h1>
-            <p class="subtitle">✅ ARCHIVOS PNG PUROS DE ALTA RESOLUCIÓN (MÁXIMA COMPATIBILIDAD GOOGLE PLAY)</p>
+            <p class="subtitle">👑 NUEVOS LOGOS DE LUJO FINTECH (512x512 PNG)</p>
+        </div>
+
+        <!-- SELECCIONADOR DE LOGOS -->
+        <h2 style="color: #fff; text-align: center; margin-bottom: 25px; font-size: 1.6rem;">Elige tu Logo Preferido para Google Play:</h2>
+        <div class="logo-grid">
+            <div class="logo-card">
+                <h4>🏛️ Opción 1: Puerta de Brandeburgo</h4>
+                <p>Icono institucional de Berlín en oro 24k sobre óvalo de medianoche.</p>
+                <img src="/play_assets/app_icon_gate.png" alt="Brandenburg Gate Logo" class="logo-img">
+                <a href="/play_assets/app_icon_gate.png" download="app_icon_512.png" class="download-sm-btn">📥 Descargar Opción 1</a>
+            </div>
+
+            <div class="logo-card">
+                <h4>🐻 Opción 2: Escudo Oso de Berlín</h4>
+                <p>Sello de protección con el oso dorado tradicional de la capital.</p>
+                <img src="/play_assets/app_icon_bear.png" alt="Berlin Bear Shield Logo" class="logo-img">
+                <a href="/play_assets/app_icon_bear.png" download="app_icon_512.png" class="download-sm-btn">📥 Descargar Opción 2</a>
+            </div>
+
+            <div class="logo-card">
+                <h4>🟢 Opción 3: Monograma Monolítico 'B'</h4>
+                <p>Estilo N26 / Revolut Metal verde esmeralda y oro digital.</p>
+                <img src="/play_assets/app_icon_monogram.png" alt="Monogram B Logo" class="logo-img">
+                <a href="/play_assets/app_icon_monogram.png" download="app_icon_512.png" class="download-sm-btn">📥 Descargar Opción 3</a>
+            </div>
         </div>
 
         <!-- PAQUETE COMPLETO ZIP -->
         <div class="zip-box">
-            <h2>📦 ¿Quieres todo de un solo golpe?</h2>
-            <p>Descarga un archivo ZIP con los 3 archivos PNG con nombres y medidas exactas formateadas.</p>
-            <a href="/google_play_assets.zip" download="google_play_assets.zip" class="zip-btn">⚡ Descargar Todo en 1 Archivo ZIP</a>
-        </div>
-
-        <!-- 1. CASILLA: ICONO DE LA APLICACION (512x512 PNG) -->
-        <div class="asset-card">
-            <h3>🔑 1. Icono de la Aplicación (Sello de Oro FinTech) <span class="badge-exact">512 x 512 PX PNG</span></h3>
-            <p><strong>Subir en "Icono de la aplicación".</strong> Formato PNG puro sin compresión de 512x512 píxeles.</p>
-            <img src="/play_assets/app_icon_512.png" alt="App Icon PNG 512x512" class="img-preview" style="max-width: 190px;">
-            <br>
-            <a href="/play_assets/app_icon_512.png" download="app_icon_512.png" class="download-btn">📥 Descargar Icono PNG (512x512 px)</a>
+            <h2>📦 ¿Quieres descargar todo el paquete actualizado en ZIP?</h2>
+            <p>Incluye los 3 nuevos logos y todas las gráficas en formato PNG puro.</p>
+            <a href="/google_play_assets.zip" download="google_play_assets.zip" class="zip-btn"> Descargar Paquete ZIP Actualizado</a>
         </div>
 
         <!-- 2. CASILLA: GRAFICO DE FUNCIONES (1024x500 PNG) -->
         <div class="asset-card">
-            <h3>🖼️ 2. Gráfico de Funciones (Banner Horizontal) <span class="badge-exact">1024 x 500 PX PNG</span></h3>
-            <p><strong>Subir en "Gráfico de funciones".</strong> Banner panorámico horizontal PNG puro de 1024x500 píxeles.</p>
+            <h3>🖼️ Banner de Funciones <span class="badge-exact">1024 x 500 PX PNG</span></h3>
+            <p>Banner horizontal de alto impacto para la tienda de Google Play.</p>
             <img src="/play_assets/feature_graphic_1024.png" alt="Feature Graphic PNG 1024x500" class="img-preview">
             <br>
             <a href="/play_assets/feature_graphic_1024.png" download="feature_graphic_1024.png" class="download-btn">📥 Descargar Banner PNG (1024x500 px)</a>
@@ -61,8 +82,8 @@
 
         <!-- 3. CASILLA: CAPTURAS DE PANTALLA (1080x1920 PNG) -->
         <div class="asset-card">
-            <h3>📱 3. Captura de Pantalla para Teléfono <span class="badge-exact">1080 x 1920 PX PNG</span></h3>
-            <p><strong>Subir en "Capturas de pantalla de teléfono".</strong> Imagen vertical PNG pura de 1080x1920 píxeles (9:16).</p>
+            <h3>📱 Captura de Pantalla Móvil <span class="badge-exact">1080 x 1920 PX PNG</span></h3>
+            <p>Demostración en pantalla vertical de citas Bürgeramt en vivo.</p>
             <img src="/play_assets/mobile_screenshot_1.png" alt="Mobile Screenshot PNG" class="img-preview" style="max-width: 230px;">
             <br>
             <a href="/play_assets/mobile_screenshot_1.png" download="mobile_screenshot_1.png" class="download-btn">📥 Descargar Captura PNG (1080x1920 px)</a>
