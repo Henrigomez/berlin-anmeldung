@@ -48,7 +48,8 @@ function getLocalSubscribers() {
     try {
         if (fs.existsSync(SUBSCRIBERS_FILE)) {
             const data = fs.readFileSync(SUBSCRIBERS_FILE, 'utf8');
-            return JSON.parse(data);
+            const parsed = JSON.parse(data);
+            return Array.isArray(parsed) ? parsed : [];
         }
     } catch (e) {
         // Fallback to memory
@@ -64,23 +65,41 @@ function saveLocalSubscribers(list) {
     }
 }
 
-async function addSubscriber(email) {
-    const emailNormalized = email.toLowerCase().trim();
+async function addSubscriber(email, telegram) {
+    const emailNormalized = email ? String(email).toLowerCase().trim() : '';
+    const telegramNormalized = telegram ? String(telegram).trim() : '';
     
+    if (!emailNormalized && !telegramNormalized) return false;
+
     // Save locally/memory
     const localList = getLocalSubscribers();
-    const existsLocal = localList.some(s => s.email === emailNormalized);
-    if (!existsLocal) {
-        localList.push({ email: emailNormalized, subscribedAt: new Date().toISOString() });
-        saveLocalSubscribers(localList);
+    const existingIndex = localList.findIndex(s => 
+        (emailNormalized && s.email === emailNormalized) || 
+        (telegramNormalized && s.telegram === telegramNormalized)
+    );
+
+    const now = new Date().toISOString();
+
+    if (existingIndex >= 0) {
+        if (emailNormalized) localList[existingIndex].email = emailNormalized;
+        if (telegramNormalized) localList[existingIndex].telegram = telegramNormalized;
+    } else {
+        localList.push({ 
+            email: emailNormalized, 
+            telegram: telegramNormalized, 
+            subscribedAt: now 
+        });
     }
+    saveLocalSubscribers(localList);
 
     // Save to Firebase if available
     if (useFirebase && db) {
         try {
-            await db.collection('subscribers').doc(emailNormalized).set({
+            const docId = (emailNormalized || telegramNormalized).replace(/[\/\#\?]/g, '_');
+            await db.collection('subscribers').doc(docId).set({
                 email: emailNormalized,
-                subscribedAt: new Date().toISOString()
+                telegram: telegramNormalized,
+                subscribedAt: now
             }, { merge: true });
         } catch (e) {
             console.error('[Firebase Error] addSubscriber failed:', e.message);
@@ -89,24 +108,41 @@ async function addSubscriber(email) {
     return true;
 }
 
-async function getSubscriberEmails() {
+async function getSubscribers() {
     if (useFirebase && db) {
         try {
             const snapshot = await db.collection('subscribers').get();
-            const emails = [];
-            snapshot.forEach(doc => emails.push(doc.id));
-            if (emails.length > 0) return emails;
+            const list = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                list.push({
+                    email: data.email || '',
+                    telegram: data.telegram || '',
+                    subscribedAt: data.subscribedAt || new Date().toISOString()
+                });
+            });
+            if (list.length > 0) return list;
         } catch (e) {
-            console.error('[Firebase Error] getSubscriberEmails failed, falling back to local:', e.message);
+            console.error('[Firebase Error] getSubscribers failed, falling back to local:', e.message);
         }
     }
     
     // Fallback to local/memory
     const localList = getLocalSubscribers();
-    return localList.map(s => s.email);
+    return localList.map(s => ({
+        email: s.email || '',
+        telegram: s.telegram || '',
+        subscribedAt: s.subscribedAt || new Date().toISOString()
+    }));
+}
+
+async function getSubscriberEmails() {
+    const subscribers = await getSubscribers();
+    return subscribers.map(s => s.email).filter(Boolean);
 }
 
 module.exports = {
     addSubscriber,
+    getSubscribers,
     getSubscriberEmails
 };

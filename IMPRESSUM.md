@@ -11,7 +11,7 @@ Berlin, Deutschland
 ---
 
 ## Kontakt (Contact)
-- **E-Mail:** henrysaahgomez@outlook.es  
+- **E-Mail:** contact@berlinanmeldung.com  
 - **Webseite:** https://berlinanmeldung.com  
 
 ---

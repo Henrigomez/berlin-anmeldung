@@ -6,6 +6,7 @@ const axios = require('axios');
 const db = require('./db');
 const { generateAnmeldungPDF } = require('./pdf_generator');
 const { createCheckoutSession } = require('./stripe');
+const { startMonitoring } = require('./termine_app');
 
 dotenv.config();
 
@@ -193,8 +194,9 @@ app.post('/api/subscribe', async (req, res) => {
             if (!emailRegex.test(email)) {
                 return res.status(400).json({ success: false, error: "Invalid email format." });
             }
-            await db.addSubscriber(email);
         }
+
+        await db.addSubscriber(email, telegram);
 
         res.status(201).json({ 
             success: true, 
@@ -268,5 +270,6 @@ if (require.main === module) {
         console.log(`====================================================`);
         console.log(`🚀 Berlin Termine Luxury Portal running at http://localhost:${PORT}`);
         console.log(`====================================================`);
+        startMonitoring();
     });
 }

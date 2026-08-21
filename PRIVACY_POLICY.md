@@ -9,7 +9,7 @@ We take the protection of your personal data very seriously. This Privacy Policy
 ## 1. Controller / Verantwortlicher
 The responsible controller for processing personal data under the General Data Protection Regulation (GDPR) is:
 - **Operator:** Henri Gomez Amsatu
-- **Contact Email:** henrysaahgomez@outlook.es
+- **Contact Email:** contact@berlinanmeldung.com
 - **Location:** Berlin, Germany
 
 ---
@@ -50,4 +50,4 @@ Under the GDPR, you have the following rights:
 - **Right to Erasure (Art. 17):** Request complete deletion of your data (e.g. email alerts list).
 - **Right to Withdraw Consent (Art. 7(3)):** Unsubscribe from notifications at any time.
 
-To exercise these rights, please email: henrysaahgomez@outlook.es.
+To exercise these rights, please email: contact@berlinanmeldung.com.

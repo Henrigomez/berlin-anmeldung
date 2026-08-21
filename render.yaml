@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: berlin-termine-bot
+    env: docker
+    region: frankfurt # Best for Berlin Bürgeramt latency
+    plan: starter # Starter plan recommended for Puppeteer
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+    disk:
+      name: data
+      mountPath: /usr/src/app/data
+      sizeGB: 1

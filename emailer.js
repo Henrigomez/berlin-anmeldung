@@ -169,7 +169,6 @@ async function sendAlert(dates, bookingUrl, recipientEmails = []) {
             return true;
         } catch (error) {
             console.error('[Nodemailer Error] Failed to send email:', error.message);
-            return false;
         }
     }
 

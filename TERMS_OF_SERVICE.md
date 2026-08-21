@@ -37,4 +37,4 @@ We are not liable for any direct, indirect, incidental, or consequential damages
 ---
 
 ## 6. Contact and Inquiries
-For questions regarding the terms, contact: henrysaahgomez@outlook.es
+For questions regarding the terms, contact: contact@berlinanmeldung.com

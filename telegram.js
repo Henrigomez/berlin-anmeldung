@@ -8,12 +8,23 @@ dotenv.config();
  * @param {string|number} chatId - Telegram chat ID or user handle
  * @param {Array} appointments - Available appointments
  */
-async function sendTelegramAlert(chatId, appointments) {
+async function sendTelegramAlert(chatId, appointments = []) {
+    if (!chatId) {
+        return { success: false, error: 'Invalid Chat ID' };
+    }
+
     const botToken = process.env.TELEGRAM_BOT_TOKEN;
+    const safeAppointments = Array.isArray(appointments) ? appointments : [];
 
     const messageText = `🚨 *BERLIN ANMELDUNG TERMIN GEFUNDEN!* 🚨\n\n` +
-        `Es wurden soeben *${appointments.length} freie Termine* im Bürgeramt gefunden:\n\n` +
-        appointments.map(apt => `📅 *${apt.date}* um *${apt.time}*\n📍 Ort: ${apt.location || 'Bürgeramt Berlin'}\n🔗 [Hier Buchungsseite öffnen](${apt.link})`).join('\n\n') +
+        `Es wurden soeben *${safeAppointments.length} freie Termine* im Bürgeramt gefunden:\n\n` +
+        safeAppointments.map(apt => {
+            const dateStr = apt?.date || 'Unbekanntes Datum';
+            const timeStr = apt?.time || 'Ganztägig';
+            const locStr = apt?.location || 'Bürgeramt Berlin';
+            const linkStr = apt?.link || 'https://service.berlin.de/terminvereinbarung/termin/day/120686/';
+            return `📅 *${dateStr}* um *${timeStr}*\n📍 Ort: ${locStr}\n🔗 [Hier Buchungsseite öffnen](${linkStr})`;
+        }).join('\n\n') +
         `\n\n⚡ _Schnell buchen! Die Termine sind in ca. 60 Sekunden ausgebucht._`;
 
     if (!botToken || botToken.includes('YOUR_TELEGRAM')) {
